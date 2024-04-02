@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'ipn_url' => 'https://changalab.remipago.com/ipn.php',
         'cancel_url' => 'https://changalab.remipago.com',
         'success_url' => 'https://changalab.remipago.com/success_url.php?currency=' . urlencode($currency) . '&amount=' . urlencode($amount) . '&details=' . urlencode($details),
-        'public_key' => 'a7vsj70vrulixf3x2nhaw1t7pplt60pu09y01xfdpblvmryang',
+        'public_key' => 'PUT_YOUR_PUBLIC_KEY_HERE',
         'site_logo' => 'https://remipago.com/assets/images/logoIcon/logo.png',
         'checkout_theme' => 'dark',
         'customer_name' => 'Juan',
