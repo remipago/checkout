@@ -1,4 +1,4 @@
-# checkout
+# Instructions
 Get the code to connect your app to the Remipago payment gateway.
 
 This is a fully ready example of an html form to receive donations, you only need to add your *public key* and *secret key* to activate the payment gateway and get the funds into your Remipago account.
