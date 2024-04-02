@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago</title>
+    <!-- Agrega estilos CSS personalizados aquí si es necesario -->
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .amount-section {
+            flex: 1;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .amount-selected {
+            background-color: #b3ffb3; /* Verde claro */
+        }
+    </style>
+</head>
+<body>
+    <form id="payment-form" action="pagar.php" method="post">
+        <h2 style="text-align: center;">Completa el formulario para realizar el pago</h2>
+        <label for="currency">Moneda:</label>
+        <select id="currency" name="currency" required>
+            <option value="">Selecciona una moneda</option>
+            <option value="ARS">ARS - Peso Argentino</option>
+            <option value="USD">USD - Dólar Estadounidense</option>
+            <option value="EUR">EUR - Euro</option>
+            <!-- Agrega más opciones según la lista de monedas disponibles en la documentación -->
+        </select>
+        
+        <label for="amount">Monto:</label>
+        <div style="display: flex;">
+            <div class="amount-section" onclick="selectAmount(this)">10</div>
+            <div class="amount-section" onclick="selectAmount(this)">20</div>
+            <div class="amount-section" onclick="selectAmount(this)">50</div>
+        </div>
+        <div style="margin-top: 10px;">
+            <label for="custom-amount">O ingresa un monto:</label>
+            <input type="text" id="custom-amount" name="custom-amount" placeholder="Ingrese el monto" style="width: 100%;">
+        </div>
+        
+        <input type="hidden" id="selected-amount" name="selected-amount">
+        
+        <label for="details">Detalles:</label>
+        <textarea id="details" name="details" rows="4" placeholder="Ingrese detalles del pago" required></textarea>
+        
+        <input type="submit" value="Pagar ahora">
+    </form>
+    
+    <!-- Agrega scripts JavaScript personalizados aquí si es necesario -->
+    <script>
+        function selectAmount(element) {
+            // Si el monto ya está seleccionado, deselecciónalo
+            if (element.classList.contains('amount-selected')) {
+                element.classList.remove('amount-selected');
+                document.getElementById('custom-amount').disabled = false;
+                document.getElementById('selected-amount').value = '';
+            } else {
+                // Deseleccionar todos los montos
+                var amountSections = document.querySelectorAll('.amount-section');
+                amountSections.forEach(function(section) {
+                    section.classList.remove('amount-selected');
+                });
+                // Seleccionar el monto actual
+                element.classList.add('amount-selected');
+                // Establecer el valor seleccionado en el campo oculto
+                document.getElementById('selected-amount').value = element.textContent.trim();
+                // Desactivar el campo de entrada de monto si se selecciona uno de los montos prefijados
+                document.getElementById('custom-amount').disabled = true;
+            }
+        }
+
+        // Corregir el formato de los decimales al enviar el formulario
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            var customAmountInput = document.getElementById('custom-amount');
+            var customAmountValue = customAmountInput.value;
+            if (customAmountValue.includes(',')) {
+                // Reemplazar la coma por un punto
+                customAmountInput.value = customAmountValue.replace(',', '.');
+            }
+        });
+    </script>
+</body>
+</html>
