@@ -22,7 +22,7 @@ if ($status === null || $signature === null || $identifier === null || $data ===
 $data = json_decode($data, true);
 
 // Definir tu clave secreta proporcionada por Remipago
-$secret_key = 'jz6e0b5nyuxg9g59dy6lftgm1criwguslj70s1fzvrnpasrwjb';
+$secret_key = 'PUT_YOUR_SECRET_KEY_HERE';
 
 // Calcular la firma HMAC usando la clave secreta y el identificador
 $custom_key = $data['amount'] . $identifier;
